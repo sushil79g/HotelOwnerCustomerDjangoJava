@@ -23,4 +23,4 @@ class Specialitysignup(models.Model):
     speciality = models.CharField(max_length = 30)
 
 
-class order(models.Model):
+
