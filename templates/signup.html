@@ -1,0 +1,8 @@
+<button><a href="/owner/signup">signup</a></button>
+
+
+{% if user.is_authenticated %}
+    <button><a href="/owner/login">LOGIN</a></button>
+{% else %}
+    <button><a href="/">LOG OUT</a></button>
+{% endif %}

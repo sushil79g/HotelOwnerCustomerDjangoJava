@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>After Login</title>
+</head>
+<body>
+
+    {% if user.is_authenticated %}
+        <button><a href="/owner/order">Order</a></button>
+        <button><a href="/owner/status">status</a></button>
+        <button><a href="/owner/menu">Menu</a></button>
+    {% else %}
+        first <a href="/owner/login">login</a> here
+    {% endif %}
+
+
+</body>
+</html>
