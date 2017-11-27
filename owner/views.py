@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect
-from .models import Signup
-from django.http import HttpResponse
-from django.contrib.auth.forms import UserCreationForm
+# from .models import Signup
+# from django.http import HttpResponse
+# from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
-from django.contrib import messages
+from django.contrib.auth.models import User
+# from django.contrib import messages
 from django.http import HttpResponse
-from django import forms
+# from django.contrib import  admin
+# from django import forms
 from .form import SignUpForm
+from menu.models import Food, Drink, Order
     # ,LoginForm
 # Create your views here.
 # def signup(request):
@@ -98,5 +101,15 @@ def after(request):
     return  render(request,'afterLogin.html',{})
 
 
+
 def order(request):
+    if User.is_staff:
+        # foodName = request.order_set.all()
+        current_user = request.user
+        print(current_user.id)
+
+def status(request):
     return  HttpResponse('Kam baki xa yaha')
+
+def menu(request):
+    return  HttpResponse('kam baki xa')

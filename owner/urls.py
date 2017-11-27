@@ -10,7 +10,7 @@ from django.core.urlresolvers import reverse_lazy
 urlpatterns = [
     
     # url(r'^register', views.register, name='register'),
-    url(r'^signup/', views.signup, name='register'),
+    url(r'^signup/$', views.signup, name='register'),
 
     url(r'^login/',views.login, name= 'login'),
     url(r'^after',views.after,name='after'),
