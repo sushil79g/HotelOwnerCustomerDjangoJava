@@ -3,13 +3,13 @@
 </h1>
 
 {% if messages %}
-<ul>
+<ul class="messages">
     {% for message in messages %}
-    <li>{{ message }}</li>
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
     {% endfor %}
 </ul>
 {% endif %}
-<form action="/owner/signup" method="POST">
+<form action="/owner/signup/" method="POST">
 {% csrf_token %} 
 {{ form.as_p }}
 

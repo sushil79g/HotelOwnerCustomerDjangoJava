@@ -1,10 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-$END$
+
+<div class="container">
+  <h2>Basic Table</h2>
+  <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Table_number</th>
+        <th>Food</th>
+          <th>Food quantity</th>
+          <th>Drink</th>
+          <th>Drink Quantity</th>
+          <th>Date</th>
+          <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+
+          {% for ord in order %}
+          <tr>
+          <td>{{ ord.user }}</td>
+            <td>{{ ord.table_number }}</td>
+            <td>{{ ord.food }}</td>
+              <td>{{ ord.food_quantity }}</td>
+            <td>{{ ord.drink }}</td>
+            <td>{{ ord.drink_quantity }}</td>
+              <td>{{ ord.date }}</td>
+            {% if ord.is_delivered == False %}
+                <td><button><a href="{% url 'updatePending' person_id=ord.id %}">Pending</a></button></td>
+            {% else %}
+                <td>Delivered</td>
+          {% endif %}
+          </tr>
+
+        {% endfor %}
+
+    </tbody>
+  </table>
+</div>
+
 </body>
 </html>

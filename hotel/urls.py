@@ -20,6 +20,8 @@ from django.views.generic import TemplateView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^owner/', include('owner.urls')),
-    url(r'/$',TemplateView.as_view(template_name='signup.html')),
+    # url(r'/$',TemplateView.as_view(template_name='signup.html')),
+    url(r'^api/',include('owner.api.urls')),
+
     
 ]
