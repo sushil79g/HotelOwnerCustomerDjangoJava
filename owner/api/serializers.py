@@ -127,6 +127,31 @@ class OrderDeliveredSerializer(Serializer):
 
 
 
+# for serach
+
+class FoodSearchSerializer(ModelSerializer):
+    class Meta:
+        model = Food
+        fields = ['name']
+
+class DrinkSearchSerializer(ModelSerializer):
+    class Meta:
+        model = Drink
+        fields = ['name']
+
+class SpecialSearchSerializer(ModelSerializer):
+    class Meta:
+        model = TodaySpecial
+        fields = ['name']
+
+
+class SearchSerializer(Serializer):
+    FoodSearch = FoodSearchSerializer(many=True)
+    DrinkSearch = DrinkSearchSerializer(many=True)
+    SpecialSearch = SpecialSearchSerializer(many=True)
+
+
+
 
 class FoodUpdateSerializer(ModelSerializer):
 

@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import serializers
 from owner.models import Signup
 from menu.models import FoodOrder, DrinkOrder, SpecialOrder, Food, Drink, TodaySpecial
-from .serializers import SignupSerializer, FoodOrderSerializer, DrinkOrderSerializer, SpecialOrderSerializer, OrderSerializer, FoodSerializer, DrinkSerializer,SpecialSerializer
+from .serializers import SignupSerializer, FoodOrderSerializer, DrinkOrderSerializer, SpecialOrderSerializer, OrderSerializer, FoodSerializer, DrinkSerializer,SpecialSerializer,SearchSerializer
 from collections import namedtuple
 from rest_framework import viewsets
 import datetime
@@ -16,6 +16,19 @@ from rest_framework import status
 class SignupListView(ListAPIView):
     queryset = Signup.objects.all()
     serializer_class = SignupSerializer
+
+
+
+item = namedtuple('items',('FoodSearch','DrinkSearch','SpecialSearch'))
+class search(viewsets.ViewSet):
+    def list(self, request):
+        allitems = item(
+            FoodSearch = Food.objects.all(),
+            DrinkSearch = Drink.objects.all(),
+            SpecialSearch = TodaySpecial.objects.all()
+        )
+        serial = SearchSerializer(allitems)
+        return Response(serial.data)
 
 
 
@@ -147,7 +160,7 @@ class DeliveredListView(viewsets.ViewSet):
 
 
 
-class Food(APIView):
+class Foood(APIView):
     def get(self, request, format=None):
         food = Food.objects.all()
         serializer = FoodSerializer(food, many=True)
@@ -156,33 +169,34 @@ class Food(APIView):
     def post(self,request, format=None):
         serializer = FoodSerializer(data=request.data)
         if serializer.is_valid():
-            
+            serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class Drink(APIView):
+class Drrink(APIView):
     def get(self, request, format=None):
-        drink = Drink.objects.all()
-        serializer = DrinkSerializer(drink)
+        food = Drink.objects.all()
+        serializer = DrinkSerializer(food, many=True)
         return Response(serializer.data)
 
     def post(self,request, format=None):
-        serializer = DrinkSerializer(date=request.data)
+        serializer = DrinkSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-class Special(APIView):
+class Sppecial(APIView):
     def get(self, request, format=None):
-        drink = TodaySpecial.objects.all()
-        serializer = SpecialSerializer(drink)
+        food = TodaySpecial.objects.all()
+        serializer = SpecialSerializer(food, many=True)
         return Response(serializer.data)
 
     def post(self,request, format=None):
-        serializer = SpecialSerializer(date=request.data)
+        serializer = SpecialSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+
+

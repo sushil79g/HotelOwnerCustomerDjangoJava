@@ -83,7 +83,7 @@ class DrinkOrder(models.Model):
 
 class TodaySpecial(models.Model):
     name = models.CharField(max_length=30)
-    image = models.ImageField(upload_to='')
+    image = models.ImageField(upload_to='', null=True,blank=True)
     description = models.CharField(max_length=150)
     price = models.PositiveIntegerField(default=0)
     course_choice = (

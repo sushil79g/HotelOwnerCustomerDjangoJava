@@ -8,6 +8,9 @@ from .views import (
     DeliveredListView,
     # PendingDeliverdListView,
     Foood,
+    Drrink,
+    Sppecial,
+    search,
 )
 from .foodorderupdateviews import(
     PendingFoodDeliverdListView,
@@ -27,6 +30,9 @@ urlpatterns = [
     url(r'^menu/$',FoodListView.as_view({'get':'list'}), name='MenuList'),
     url(r'^testing/$',MenuList.as_view(), name='Testing'),
     url(r'^food/',Foood.as_view(), name='Food'),
+    url(r'^drink/',Drrink.as_view(), name='Food'),
+    url(r'^todayspecial/',Sppecial.as_view(), name='Food'),
+    url(r'^search/$',search.as_view({'get':'list'}), name='searching')
 
 
 
