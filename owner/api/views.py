@@ -12,6 +12,7 @@ from rest_framework import viewsets
 import datetime
 from rest_framework.views import APIView
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 class SignupListView(ListAPIView):
     queryset = Signup.objects.all()
@@ -34,8 +35,12 @@ class search(viewsets.ViewSet):
 
 
 Order = namedtuple('Order', ('FoodOrder', 'DrinkOrder', 'SpecialOrder'))
+
+
 class OrderListView(viewsets.ViewSet):
     # serializer_class = OrderSerializer
+    # permission_classes = (IsAuthenticated,)
+    permission_classes = [ IsAuthenticated ]
 
     def list(self, request):
         date = datetime.date.today()

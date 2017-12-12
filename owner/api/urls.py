@@ -1,6 +1,7 @@
 from django.conf.urls import url,include
 from . import views
 from . import foodorderupdateviews
+from rest_framework_jwt.views import obtain_jwt_token
 from .views import (
     SignupListView,
     OrderListView,
@@ -20,6 +21,7 @@ from .foodorderupdateviews import(
     MenuList,
 )
 urlpatterns = [
+    url(r'^api-token-auth/',obtain_jwt_token),
     url(r'^users/', SignupListView.as_view(), name='list'),
     url(r'^orderlist/',OrderListView.as_view({'get':'list'}), name='orderlist'),
     url(r'^pendinglist/$', PendingListView.as_view({'get':'list'}), name='pendingorderlist'),
