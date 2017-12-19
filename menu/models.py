@@ -50,10 +50,10 @@ class Drink(models.Model):
 class FoodOrder(models.Model):
     table_no = models.PositiveIntegerField(default=0)
 
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(auto_now=True)
     time = models.TimeField(auto_now=True)
-    food = models.ForeignKey('Food', null=True, blank=True)
+    food = models.ForeignKey('Food', null=True, blank=True, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=0)
     remarks = models.CharField(max_length=100, null=True, blank=True)
     delivered = models.BooleanField(default=False)
@@ -68,10 +68,10 @@ class FoodOrder(models.Model):
 
 class DrinkOrder(models.Model):
     table_no = models.PositiveIntegerField(default=0)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(auto_now=True)
     time = models.TimeField(auto_now=True)
-    drink = models.ForeignKey('Drink', null=True, blank=True)
+    drink = models.ForeignKey('Drink', null=True, blank=True, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=0)
     remarks = models.CharField(max_length=100, null=True, blank=True)
     delivered = models.BooleanField(default=False)
@@ -96,10 +96,10 @@ class TodaySpecial(models.Model):
 
 class SpecialOrder(models.Model):
     table_no = models.PositiveIntegerField(default=0)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(auto_now=True)
     time = models.TimeField(auto_now=True)
-    special = models.ForeignKey('TodaySpecial', null=True, blank=True)
+    special = models.ForeignKey('TodaySpecial', null=True, blank=True, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=0)
     remarks = models.CharField(max_length=100, null=True, blank=True)
     delivered = models.BooleanField(default=False)

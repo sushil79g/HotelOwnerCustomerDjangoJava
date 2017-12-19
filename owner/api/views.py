@@ -6,15 +6,20 @@ from rest_framework.response import Response
 from rest_framework import serializers
 from owner.models import Signup
 from menu.models import FoodOrder, DrinkOrder, SpecialOrder, Food, Drink, TodaySpecial
-from .serializers import SignupSerializer, FoodOrderSerializer, DrinkOrderSerializer, SpecialOrderSerializer, OrderSerializer, FoodSerializer, DrinkSerializer,SpecialSerializer,SearchSerializer
+from .serializers import SignupSerializer
+from .serializers import FoodOrderSerializer, DrinkOrderSerializer, SpecialOrderSerializer, OrderSerializer, FoodSerializer, DrinkSerializer,SpecialSerializer,SearchSerializer
 from collections import namedtuple
 from rest_framework import viewsets
 import datetime
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+# from rest_framework.decorators import permission_classes
+
+# @permission_classes((IsAuthenticated, ))
 
 class SignupListView(ListAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Signup.objects.all()
     serializer_class = SignupSerializer
 
@@ -22,6 +27,7 @@ class SignupListView(ListAPIView):
 
 item = namedtuple('items',('FoodSearch','DrinkSearch','SpecialSearch'))
 class search(viewsets.ViewSet):
+    permission_classes = (IsAuthenticated,)
     def list(self, request):
         allitems = item(
             FoodSearch = Food.objects.all(),
@@ -39,8 +45,8 @@ Order = namedtuple('Order', ('FoodOrder', 'DrinkOrder', 'SpecialOrder'))
 
 class OrderListView(viewsets.ViewSet):
     # serializer_class = OrderSerializer
-    # permission_classes = (IsAuthenticated,)
-    permission_classes = [ IsAuthenticated ]
+    permission_classes = (IsAuthenticated,)
+    
 
     def list(self, request):
         date = datetime.date.today()
@@ -57,6 +63,7 @@ class OrderListView(viewsets.ViewSet):
 
 class PendingListView(viewsets.ViewSet):
     # serializer_class = OrderSerializer
+    permission_classes = (IsAuthenticated,)
 
     def list(self, request):
         date = datetime.date.today()
@@ -70,6 +77,7 @@ class PendingListView(viewsets.ViewSet):
 
 class DeliveredListView(viewsets.ViewSet):
     # serializer_class = OrderSerializer
+    permission_classes = (IsAuthenticated,)
 
     def list(self, request):
         date = datetime.date.today()
@@ -166,6 +174,7 @@ class DeliveredListView(viewsets.ViewSet):
 
 
 class Foood(APIView):
+    permission_classes = (IsAuthenticated,)
     def get(self, request, format=None):
         food = Food.objects.all()
         serializer = FoodSerializer(food, many=True)
@@ -179,6 +188,7 @@ class Foood(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class Drrink(APIView):
+    permission_classes = (IsAuthenticated,)
     def get(self, request, format=None):
         food = Drink.objects.all()
         serializer = DrinkSerializer(food, many=True)
@@ -192,6 +202,7 @@ class Drrink(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class Sppecial(APIView):
+    permission_classes = (IsAuthenticated,)
     def get(self, request, format=None):
         food = TodaySpecial.objects.all()
         serializer = SpecialSerializer(food, many=True)

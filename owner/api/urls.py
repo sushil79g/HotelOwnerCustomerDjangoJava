@@ -2,6 +2,8 @@ from django.conf.urls import url,include
 from . import views
 from . import foodorderupdateviews
 from rest_framework_jwt.views import obtain_jwt_token
+# from .signupview import create_user
+from django.db import models
 from .views import (
     SignupListView,
     OrderListView,
@@ -34,7 +36,8 @@ urlpatterns = [
     url(r'^food/',Foood.as_view(), name='Food'),
     url(r'^drink/',Drrink.as_view(), name='Food'),
     url(r'^todayspecial/',Sppecial.as_view(), name='Food'),
-    url(r'^search/$',search.as_view({'get':'list'}), name='searching')
+    url(r'^search/$',search.as_view({'get':'list'}), name='searching'),
+    # url(r'^signup/',create_user,name='create_user'),
 
 
 

@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'owner',
     'menu',
+    'signup',
     'rest_framework',
+    'rest_framework.authtoken',
 
 ]
 
@@ -52,7 +54,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*']
 
 ROOT_URLCONF = 'hotel.urls'
 
@@ -107,11 +109,15 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES':(
-        'rest_framework.permissions.AllowAny',
+    'DEFAULT_PERMISSION_CLASSES': (
+        # 'signup.authe.EmailOrMobileAuthBackend'
+        'rest_framework.permissions.IsAuthenticated',
     ),
-    'DEFAULT_AUTHENTICATION_CLASSES':(
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'signup.authe.EmailOrMobileAuthBackend'
+        'signup.authe.DrfAuthBackend'
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
@@ -140,3 +146,6 @@ STATICFILES_DIRS = [
 
 LOGIN_REDIRECT_URL = 'login'
 LOGOUT_URL = 'logout'
+
+REST_AUTH_SERIALIZERS = { 'USER_DETAILS_SERIALIZER':'signup.serializers.UserSerializer' }
+AUTHENTICATION_BACKENDS ={'signup.authe.EmailOrMobileAuthBackend'}

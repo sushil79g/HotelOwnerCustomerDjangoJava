@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Signup, Ssidsignup, Specialitysignup
+from .models import  Ssidsignup, Specialitysignup
+from .models import Signup
 from menu.models import Food,Drink, FoodOrder, DrinkOrder, TodaySpecial,SpecialOrder
 
 

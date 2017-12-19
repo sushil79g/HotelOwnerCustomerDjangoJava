@@ -1,8 +1,9 @@
 from rest_framework.serializers import ModelSerializer, Serializer
 from rest_framework import serializers
-from owner.models import Signup
+# from owner.models import Signup
 from menu.models import FoodOrder, DrinkOrder, SpecialOrder, Food, Drink, TodaySpecial
 from django.contrib.auth.models import User
+from owner.models import Signup
 
 class SignupSerializer(ModelSerializer):
     class Meta:
@@ -302,6 +303,12 @@ class MenuListSerializer(Serializer):
     DrinkSoft = MenuSectionDrinkSerializer(many=True)
     Beverage =   MenuSectionDrinkSerializer(many=True)
     Special = MenuSectionSpecialSerializer(many=True)
+
+
+
+
+
+# class SignupSerializer
 
 
 

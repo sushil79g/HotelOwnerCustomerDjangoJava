@@ -1,12 +1,12 @@
 from django.db import models
 from django.core.validators import RegexValidator
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
 class Signup(models.Model):
-    username = models.CharField(max_length=256)
-    email = models.EmailField()
-    password = models.CharField(max_length=50, validators=[RegexValidator(regex='^.{8}$', message='Minimum 8 character required!!!', code='nomatch')])
-    token = models.CharField(max_length=150, default='')
+    username = models.CharField(max_length=256,default='')
+    email = models.EmailField(unique=True, max_length=250)
+    # password = models.CharField(max_length=50, validators=[RegexValidator(regex='^.{8}$', message='Minimum 8 character required!!!', code='nomatch')])
+    # token = models.CharField(max_length=150, default='')
     description = models.CharField(max_length=250, default='')
     extra_charge = models.BooleanField(default=False)
     vat = models.BooleanField(default=True)
