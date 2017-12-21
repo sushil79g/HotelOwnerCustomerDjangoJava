@@ -22,9 +22,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny
-from .serializers import UserSerializer, UserProfileSerializer
+from .serializers import UserSerializer, profileSerializer
 from rest_framework import generics
-from .models import UserProfile
+from .models import Profile
 from rest_framework.permissions import AllowAny
 from rest_framework import viewsets
 # from rest_framework_jwt.views import obtain_jwt_token
@@ -72,18 +72,18 @@ User = get_user_model()
 
 class UserSignUp(generics.CreateAPIView):
     permission_classes = [AllowAny]
-    queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializer
+    queryset = Profile.objects.all()
+    serializer_class = UserSerializer
 
 class UserListSignUp(generics.ListAPIView):
     permission_classes = [AllowAny]
-    queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializer
+    queryset = Profile.objects.all()
+    serializer_class = UserSerializer
 
-class UserUpdateSignUp(generics.UpdateAPIView):
-    pagination_class = [AllowAny]
-    queryset = UserListSignUp.objects.get('pk')
-    serializer_class =UserProfileSerializer
+# class UserUpdateSignUp(generics.UpdateAPIView):
+#     pagination_class = [AllowAny]
+#     queryset = UserProfile.objects.get('pk')
+#     serializer_class =UserProfileSerializer
 
 #     def perform_create(self, serializer):
 #         serializer.save(user = self.request.user)

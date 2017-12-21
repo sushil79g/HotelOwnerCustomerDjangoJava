@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^owner/', include('owner.urls')),
     # url(r'/$',TemplateView.as_view(template_name='signup.html')),
     url(r'^api/',include('owner.api.urls')),
-    url(r'^test/',include('signup.urls')),
+    url(r'^test/',include('accountowner.urls')),
 
     
 ]

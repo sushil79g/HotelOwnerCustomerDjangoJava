@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'owner',
     'menu',
-    'signup',
+    'accountowner',
+    # 'signup',
     'rest_framework',
     'rest_framework.authtoken',
 
@@ -114,8 +115,8 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'signup.authe.EmailOrMobileAuthBackend'
-        'signup.authe.DrfAuthBackend'
+        # 'signup.authe.EmailOrMobileAuthBackend',
+        # 'signup.authe.DrfAuthBackend',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
@@ -147,5 +148,9 @@ STATICFILES_DIRS = [
 LOGIN_REDIRECT_URL = 'login'
 LOGOUT_URL = 'logout'
 
-REST_AUTH_SERIALIZERS = { 'USER_DETAILS_SERIALIZER':'signup.serializers.UserSerializer' }
-AUTHENTICATION_BACKENDS ={'signup.authe.EmailOrMobileAuthBackend'}
+AUTH_USER_MODEL = 'accountowner.Account'
+
+# AUTH_USER_MODEL = 'signup models.Profile'
+
+# REST_AUTH_SERIALIZERS = { 'USER_DETAILS_SERIALIZER':'signup.serializers.UserSerializer' }
+# AUTHENTICATION_BACKENDS ={'signup.authe.EmailOrMobileAuthBackend'}

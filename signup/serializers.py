@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer 
-from .models import UserProfile
+from .models import Profile
 # from .models import Ssidsignup,Specialitysignup
 from rest_framework.exceptions import ValidationError
 from rest_framework.validators import UniqueValidator
@@ -22,13 +22,7 @@ User = get_user_model()
 
 
 
-class UserSerializer(ModelSerializer):
-    # profile = profileSerializer()
-    class Meta:
-        model = User
-        fields = [
-            'email','password','username'
-        ]
+
 # class profileSerializer(ModelSerializer):
 #     user = UserSerializer()
 #     class Meta:
@@ -93,52 +87,115 @@ class UserSerializer(ModelSerializer):
     #         raise ValidationError('password')
     #     return data
 
+# class UserSerializer(ModelSerializer):
+#     # profile = profileSerializer()
+#     class Meta:
+#         model = User
+#         fields = [
+#             'email','password','username'
+#         ]
 
-
-class UserProfileSerializer(ModelSerializer):
-    username = serializers.CharField(source='user.username')
-    email = serializers.CharField(source='user.email')
-    password = serializers.CharField(source='user.password')
-    # description = serializers.CharField('description')
-    # extra_charge = serializers.BooleanField('extra_charge')
-    # vat = serializers.BooleanField('vat')
-    # hotel_name = serializers.CharField('hotel_name')
+# class UserProfileSerializer(ModelSerializer):
+#     # username = serializers.CharField(source='user.username')
+#     email = serializers.CharField(source='user.email')
+#     password = serializers.CharField(source='user.password')
+#     # description = serializers.CharField('description')
+#     # extra_charge = serializers.BooleanField('extra_charge')
+#     # vat = serializers.BooleanField('vat')
+#     # hotel_name = serializers.CharField('hotel_name')
     
-    class Meta:
-        model = UserProfile
-        fields = (
-            'username','email','password','description',
-            'extra_charge','vat','hotel_name','mobile'
-        )
+#     class Meta:
+#         model = Profile
+#         fields = (
+#            'email','password','description',
+#             'extra_charge','vat','hotel_name','mobile'
+#         )
 
-    def update(self ,instance, validate_data):
-            instance.user.email = validate_data['user']['email']
-            instance.user.password = validate_data['user']['password']
-            instance.description = validate_data['description']
-            instance.extra_charge= validate_data['extra_charge']
-            instance.vat = validate_data['vat']
-            instance.hotel_name = validate_data['hotel_name']
-            instance.mobile = validate_data['mobile']
-            instance.save()
-            return instance
+#     def update(self ,instance, validate_data):
+#             instance.user.email = validate_data['user']['email']
+#             instance.user.password = validate_data['user']['password']
+#             instance.description = validate_data['description']
+#             instance.extra_charge= validate_data['extra_charge']
+#             instance.vat = validate_data['vat']
+#             instance.hotel_name = validate_data['hotel_name']
+#             instance.mobile = validate_data['mobile']
+#             instance.save()
+#             return instance
 
-    def create(self, validate_data):
-            # test = validate_data.get('user.password')
-            # # salt = uuid.uuid4().hex
-            # # hased_pass = hashlib.sha512(test + salt).hexdigest()
-            # print('\n')
-            # print(test)
-            # print('\n')
-            # passw = validate_data['user']['password']
-            salt = uuid.uuid4().hex
-            hashed = hashlib.sha512(validate_data['user']['password'].encode('utf-8') + salt.encode('utf-8')).hexdigest()
-            # print(validate_data['user']['email'])
+#     def create(self, validate_data):
+#             # test = validate_data.get('user.password')
+#             # # salt = uuid.uuid4().hex
+#             # # hased_pass = hashlib.sha512(test + salt).hexdigest()
+#             # print('\n')
+#             # print(test)
+#             # print('\n')
+#             # passw = validate_data['user']['password']
+#             salt = uuid.uuid4().hex
+#             hashed = hashlib.sha512(validate_data['user']['password'].encode('utf-8') + salt.encode('utf-8')).hexdigest()
+#             # print(validate_data['user']['email'])
             
-            # hashed = hashlib.sha512(validate_data['user']['password'] + salt).hexdigest()
-            user = User.objects.create(username= validate_data['user']['username'],email= validate_data['user']['email'],password=hashed)
-            return UserProfile(user=user)
+#             # hashed = hashlib.sha512(validate_data['user']['password'] + salt).hexdigest()
+#             user = User.objects.create(email= validate_data['user']['email'],password=hashed)
+#             return Profile(user=user)
 
 
 
     # user = User.objects.create(username= attrs.get('user.username'),email=attrs.get('user.email'),password=attrs.get('user.password'))
     #     return UserProfile(user=user)
+
+
+
+
+
+
+class profileSerializer(ModelSerializer):
+    # profile = profileSerializer()
+    class Meta:
+        model = Profile
+        fields = [
+            'description',
+            'extra_charge','vat','hotel_name','mobile'
+        ]
+
+class UserSerializer(ModelSerializer):
+    # username = serializers.CharField(source='user.username')
+    # email = serializers.CharField(source='user.email')
+    # password = serializers.CharField(source='user.password')
+    # description = serializers.CharField('description')
+    # extra_charge = serializers.BooleanField('extra_charge')
+    # vat = serializers.BooleanField('vat')
+    # hotel_name = serializers.CharField('hotel_name')
+    profile = profileSerializer(many=True)
+    class Meta:
+        model = User
+        fields = (
+           'email','password','profile',
+            # 'extra_charge','vat','hotel_name','mobile'
+        )
+
+    # def update(self ,instance, validate_data):
+    #         instance.user.email = validate_data['user']['email']
+    #         instance.user.password = validate_data['user']['password']
+    #         instance.description = validate_data['description']
+    #         instance.extra_charge= validate_data['extra_charge']
+    #         instance.vat = validate_data['vat']
+    #         instance.hotel_name = validate_data['hotel_name']
+    #         instance.mobile = validate_data['mobile']
+    #         instance.save()
+    #         return instance
+
+    # def create(self, validate_data):
+    #         # test = validate_data.get('user.password')
+    #         # # salt = uuid.uuid4().hex
+    #         # # hased_pass = hashlib.sha512(test + salt).hexdigest()
+    #         # print('\n')
+    #         # print(test)
+    #         # print('\n')
+    #         # passw = validate_data['user']['password']
+    #         salt = uuid.uuid4().hex
+    #         hashed = hashlib.sha512(validate_data['user']['password'].encode('utf-8') + salt.encode('utf-8')).hexdigest()
+    #         # print(validate_data['user']['email'])
+            
+            # hashed = hashlib.sha512(validate_data['user']['password'] + salt).hexdigest()
+            # user = User.objects.create(email= validate_data['user']['email'],password=hashed)
+            # return Profile(user=user)

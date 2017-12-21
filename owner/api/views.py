@@ -61,6 +61,24 @@ class OrderListView(viewsets.ViewSet):
     # queryset = list(chain(FoodOrder.objects.all(), DrinkOrder.objects.all(),SpecialOrder.objects.all() ))
 
 
+class orderbycalender(viewsets.ViewSet):
+    # serializer_class = OrderSerializer
+    permission_classes = (IsAuthenticated,)
+    # print(self.kwargs['miti'])
+
+    def list(self, request):
+        print(self.kwargs['miti'])
+        date = datetime.date.today()
+        timeline = Order(
+            FoodOrder = FoodOrder.objects.filter(date= date),
+            DrinkOrder =DrinkOrder.objects.filter(date=date),
+            SpecialOrder = SpecialOrder.objects.filter(date=date)
+        )
+        serial = OrderSerializer(timeline)
+        return Response(serial.data)
+
+
+
 class PendingListView(viewsets.ViewSet):
     # serializer_class = OrderSerializer
     permission_classes = (IsAuthenticated,)
@@ -97,6 +115,32 @@ class DeliveredListView(viewsets.ViewSet):
 
                 # queryset = User.objects.all() |
 
+# class orderbycalender(viewsets.ViewSet):
+    # permission_classes = (IsAuthenticated,)
+
+
+# list = namedtuple('list',('FoodBreakfast','FoodLunch','FoodSnacks','FoodDinner','DrinkSoft','Beverage','Special'))
+
+
+# class orderbycalender(viewsets.ViewSet):
+#     def list(self,request):
+#         timeline = list(
+#             FoodBreakfast = Food.objects.filter(course='breakfast'),
+#             FoodLunch = Food.objects.filter(course='lunch'),
+#             FoodSnacks = Food.objects.filter(course='snacks'),
+#             FoodDinner = Food.objects.filter(course='dinner'),
+#             DrinkSoft = Drink.objects.filter(drink_type='soft drink'),
+#             Beverage = Drink.objects.filter(drink_type='hard drink'),
+#             Special = TodaySpecial.objects.all()
+#         )
+#         serial = MenuListSerializer(timeline)
+#         # breakfast = Food.objects.filter(course = 'breakfast')
+#         # breakfastSerializer = TestingSerializer(breakfast, many=True)
+#         # lunch = Food.objects.filter(course='lunch')
+#         # lunchserialize = TestingSerializer(lunch, many=True)
+#         # snacks = Food.objects.filter(course='snacks')
+#         # snacksSerializer = TestingSerializer(snacks, many=True)
+#         return Response(serial.data)
 
 
 

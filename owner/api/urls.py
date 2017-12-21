@@ -14,6 +14,7 @@ from .views import (
     Drrink,
     Sppecial,
     search,
+    orderbycalender,
 )
 from .foodorderupdateviews import(
     PendingFoodDeliverdListView,
@@ -37,6 +38,7 @@ urlpatterns = [
     url(r'^drink/',Drrink.as_view(), name='Food'),
     url(r'^todayspecial/',Sppecial.as_view(), name='Food'),
     url(r'^search/$',search.as_view({'get':'list'}), name='searching'),
+    url(r'^orderbydate/(?P<miti>\d{4}-\d{2}-\d{2})/$',orderbycalender.as_view({'get':'list'}) ,name='orderbydate'),
     # url(r'^signup/',create_user,name='create_user'),
 
 
