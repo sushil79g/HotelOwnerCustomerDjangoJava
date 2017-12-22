@@ -117,6 +117,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         # 'signup.authe.EmailOrMobileAuthBackend',
         # 'signup.authe.DrfAuthBackend',
+        'accountowner.authenticationBackend.EmailOrMobileAuthBackend',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
@@ -149,6 +150,8 @@ LOGIN_REDIRECT_URL = 'login'
 LOGOUT_URL = 'logout'
 
 AUTH_USER_MODEL = 'accountowner.Account'
+AUTHENTICATION_BACKENDS = ('accountowner.authenticationBackend.EmailOrMobileAuthBackend',
+                           )
 
 # AUTH_USER_MODEL = 'signup models.Profile'
 

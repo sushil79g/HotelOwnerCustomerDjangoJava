@@ -33,6 +33,8 @@
 
 from django.contrib.auth import update_session_auth_hash
 from  rest_framework import  serializers
+from rest_framework_jwt.serializers import JSONWebTokenSerializer
+
 from .models import Account,AccountManager
 
 class AccountSerializer(serializers.ModelSerializer):
@@ -69,3 +71,26 @@ class AccountSerializer(serializers.ModelSerializer):
                     'The password have to be same'
                 )
         return data
+
+
+
+
+
+# customJwtTokenSerializer
+
+
+# from django.contrib.auth import authenticate
+# class CustomJWTSerializer(JSONWebTokenSerializer):
+#     username_field = 'mobile_or_email'
+#     def validate(self, attrs):
+#         password = attrs.get('password')
+#         user_obj = Account.object.filter(email=attrs.get("mobile_or_email").first or Account.object.filter(mobile=attrs.get('mobile_or_email')))
+#         if user_obj is not None:
+#             credentials = {
+#                 'mobile':user_obj.mobile,
+#                 'password':password
+#             }
+#         if all(credentials.values()):
+#             user = authenticate(**credentials)
+#             if user:
+#                 if not user.is_active:
